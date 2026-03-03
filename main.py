@@ -1,5 +1,6 @@
 import streamlit as st
 from services.blob_service import upload_image_to_blob
+from services.card_service import analyze_credit_card_image
 
 def configure_interface():
     st.title("Validação de Cartão de Crédito")
@@ -12,7 +13,7 @@ def configure_interface():
         blob_url = upload_image_to_blob(uploaded_file, fileName)
         if blob_url:
             st.write("Imagem enviada com sucesso!")
-            credit_card_info = st.beta.expander("Informações do cartão de crédito")
+            credit_card_info = analyze_credit_card_image(blob_url)
             show_image_and_validation(blob_url, credit_card_info)
         else:
             st.write("Erro ao enviar a imagem. Por favor, tente novamente.")
